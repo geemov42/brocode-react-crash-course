@@ -1,23 +1,35 @@
 import React from "react";
+import propTypes from 'prop-types';
 
-const List = () => {
-  const fruits = [
-    { name: "Apple", calories: 95 },
-    { name: "Orange", calories: 45 },
-    { name: "Banana", calories: 105 },
-    { name: "Pineapple", calories: 37 },
-  ];
+const List = ({items =[], category = 'Category'}) => {
+  const itemList = items;
 
-//   fruits.sort((a, b) => a.name.localeCompare(b.name)); // Alphabetical order
-  fruits.sort((a, b) => a.calories - b.calories); // Numeric order
+  itemList.sort((a, b) => a.name.localeCompare(b.name)); // Alphabetical order
 
   return (
-    <ul>
-      {fruits.map((element, idx) => {
-        return <li key={idx}>{element.name} : &nbsp; <b>{element.calories}</b></li>;
-      })}
-    </ul>
+    <>
+      <h3 className="list-category">{category}</h3>
+      <ul className="list-items">
+        {itemList.map((element, idx) => {
+          return (
+            <li key={idx}>
+              {element.name} : &nbsp; <b>{element.calories}</b>
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };
+
+List.propTypes = {
+    items: propTypes.arrayOf(propTypes.shape(
+        {
+            name: propTypes.string,
+            calories: propTypes.number
+        }
+    )),
+    category: propTypes.string
+}
 
 export default List;
