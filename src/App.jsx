@@ -1,12 +1,12 @@
 import React from "react";
-import Button from "./Button";
-import ProfilePicture from "./ProfilePicture";
+import MyComponent from "./MyComponent";
+import Counter from "./Counter";
 
 function App() {
   return (
     <>
-      <Button />
-      <ProfilePicture />
+      <Counter />
+      <MyComponent />
     </>
   );
 }
