@@ -2,44 +2,29 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 const MyComponent = (props) => {
-  const [car, setCar] = useState({
-    year: 2024,
-    make: "Ford",
-    model: "Mustang",
-  });
+  const [foods, setFoods] = useState(["Apple", "Orange", "Banana"]);
 
-  const handleYearChange = (e) => {
-    setCar((prevCar) => ({
-      ...prevCar,
-      year: e.target.value,
-    }));
+  const handleAddFood = (e) => {
+    const newFood = document.getElementById('foodInput').value;
+    document.getElementById('foodInput').value = '';
+
+    setFoods(prevValue => [...prevValue, newFood]);
   };
 
-  const handleMakeChange = (e) => {
-    setCar((prevCar) => ({
-      ...prevCar,
-      make: e.target.value,
-    }));
-  };
-
-  const handleModelChange = (e) => {
-    setCar((prevCar) => ({
-      ...prevCar,
-      model: e.target.value,
-    }));
+  const handleRemoveFood = (idx) => {
+    setFoods(prevValue => prevValue.filter((_, elIdx) => idx !== elIdx));
   };
 
   return (
     <div>
-      <p>
-        Your favorite car is : {car.year} {car.make} {car.model}{" "}
-      </p>
-      <input type="number" value={car.year} onChange={handleYearChange} />
-      <br />
-      <input type="text" value={car.make} onChange={handleMakeChange} />
-      <br />
-      <input type="text" value={car.model} onChange={handleModelChange} />
-      <br />
+      <h2>List of food</h2>
+      <ul>
+        {foods.map((food, idx) => (
+          <li key={idx} onClick={() => handleRemoveFood(idx)}>{food}</li>
+        ))}
+      </ul>
+      <input type="text" id="foodInput" placeholder="Enter food name" />
+      <button onClick={handleAddFood}>Add food</button>
     </div>
   );
 };
