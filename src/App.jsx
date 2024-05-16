@@ -1,10 +1,10 @@
 import React from "react";
-import MyComponent from "./MyComponent";
+import TodoList from "./TodoList";
 
 function App() {
   return (
     <>
-      <MyComponent />
+      <TodoList />
     </>
   );
 }
