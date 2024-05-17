@@ -2,50 +2,37 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const MyComponent = (props) => {
-  const [count, setCount] = useState(0);
-  const [color, setColor] = useState('green');
+  const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight);
 
-//   // Runs after every re-render
-//   useEffect(() => {
-//     document.title = `Count: ${count}`;
-//   });
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
+  };
 
-//   // Runs only on mount
-//   useEffect(() => {
-//     document.title = `Count: ${count}`;
-//   }, []);
+  // Without useEffect, each time the component re-render, we add an event listener, so we will have thousands of event listener in the end.
+  // window.addEventListener("resize", handleResize);
+  // console.log('Event listener added');
 
-  // Runs on mount and when the value changes
-  // In that case, if count change, title updated, when color change, nothing happened
+  // With useEffect, only on event listener is added
   useEffect(() => {
-    document.title = `Count: ${count} - ${color}`;
+    window.addEventListener("resize", handleResize);
+    console.log("Event listener added");
 
     return () => {
-        // Some cleanup code
+        window.removeEventListener('resize', handleResize);
+        console.log("Event listener removed");
     };
-  }, [count]);
+  }, []);
 
-  // If we don't use useEffect, this line is executed each time the component re-render. So with useEffect, we can control that behavior
-//   document.title = `Count: ${count} - ${color}`;
-
-  const addCount = () => {
-    setCount((c) => c + 1);
-  };
-
-  const substractCount = () => {
-    setCount((c) => c - 1);
-  };
-
-  const changeColor = () => {
-    setColor(c => c === 'green' ? 'red' : 'green');
-  }
+  useEffect(() => {
+    document.title = `Size: ${width} x ${height}`;
+  }, [width, height]);
 
   return (
     <>
-      <p style={{color: color}}>Count: {count}</p>
-      <button onClick={addCount}>Add</button>
-      <button onClick={substractCount}>Substract</button><br />
-      <button onClick={changeColor}>Change color</button>
+      <p>Window width: {width}px</p>
+      <p>Window height: {height}px</p>
     </>
   );
 };
