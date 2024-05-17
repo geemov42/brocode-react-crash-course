@@ -1,10 +1,10 @@
 import React from "react";
-import MyComponent from "./MyComponent";
+import Stopwatch from "./Stopwatch";
 
 function App() {
   return (
     <>
-    <MyComponent />
+    <Stopwatch />
     </>
   );
 }
