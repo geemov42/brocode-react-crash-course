@@ -1,10 +1,10 @@
 import React from "react";
-import MyComponent from "./MyComponent";
+import DigitalClock from "./DigitalClock";
 
 function App() {
   return (
     <>
-    <MyComponent />
+    <DigitalClock />
     </>
   );
 }
